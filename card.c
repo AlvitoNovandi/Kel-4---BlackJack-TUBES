@@ -1,8 +1,24 @@
 #include "card.h"
 
+
 int isEmpty(dek* stack)
 {
     return stack->top == NULL;
+}
+
+void push(dek* stack, Card card)
+{
+    Card* Newnode = (Card*)malloc(sizeof(Card));
+    if (Newnode == NULL)
+    {
+        printf("Gagal Alokasi Memori");
+        exit(1);
+    }
+    Newnode->suit = card.suit;
+    Newnode->rank = card.rank;
+    Newnode->value = card.value;
+    Newnode->next = stack->top;
+    stack->top = Newnode;       
 }
 
 Card* pop(dek* stack) {
@@ -48,24 +64,4 @@ Card* create_deck() {
         }
     }
     return deck;
-}
-
-
-//pengecekan
-void print_deck(Card* deck) {
-    Card* current_card = deck;
-    while (current_card != NULL) {
-        printf("Suit: %d, Rank: %d, Value: %d\n", current_card->suit, current_card->rank, current_card->value);
-        current_card = current_card->next;
-    }
-}
-
-//menghapus tumpukan kartu
-void free_deck(Card* deck) {
-    Card* current_card = deck;
-    while (current_card != NULL) {
-        Card* next_card = current_card->next;
-        free(current_card);
-        current_card = next_card;
-    }
 }
