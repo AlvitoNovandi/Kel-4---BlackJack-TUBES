@@ -31,4 +31,5 @@ typedef struct Player {
     Card* hand;     // Linked list kartu yang dipegang pemain
 } Player;
 
+
 #endif // BLACKJACK_H

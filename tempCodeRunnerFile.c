@@ -1,6 +1,3 @@
-#include "blackjack.h"
-#include <stdio.h>
-
 // Fungsi untuk memasang taruhan
 int placeBet(int playerMoney) {
     int betAmount;
@@ -44,29 +41,4 @@ int updateMoney(int playerMoney, int betAmount, char result) {
 void displayMoney(int initialMoney, int finalMoney) {
     printf("Uang Awal: %d\n", initialMoney);
     printf("Uang Akhir: %d\n", finalMoney);
-}
-
-int main() {
-    int playerMoney = 1000; // Jumlah uang awal pemain
-    int betAmount; // Jumlah taruhan
-    char result; // Hasil permainan (w: menang, l: kalah)
-
-    // Memasang taruhan
-    betAmount = placeBet(playerMoney);
-    printf("You placed a bet of %d.\n", betAmount);
-
-    // Menyimpan uang awal sebelum permainan
-    int initialMoney = playerMoney;
-
-    // Simulasi hasil permainan
-    result = 'w'; // Misalnya, pemain menang
-
-    // Memperbarui jumlah uang pemain berdasarkan hasil permainan
-    playerMoney = updateMoney(playerMoney, betAmount, result);
-    printf("Your money after the game: %d\n", playerMoney);
-
-    // Menampilkan jumlah uang pemain sebelum dan sesudah memasang taruhan
-    displayMoney(initialMoney, playerMoney);
-
-    return 0;
 }
