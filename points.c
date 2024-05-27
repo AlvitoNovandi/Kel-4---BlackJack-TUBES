@@ -2,34 +2,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Struktur untuk menyimpan informasi highscore
+// Struktur untuk menyimpan informasi kartu
 typedef struct {
+    char suit[10];
+    char rank[5];
+} Card;
+
+// Struktur untuk menyimpan informasi pemain
+typedef struct {
+    Card* hand;
+    int numCards;
     char name[50];
     int score;
-} Highscore;
+} Player;
 
-// Fungsi untuk menambahkan poin ke highscore
-void addPointsToHighscore(Highscore *highscore, const char *playerName, int points, int *winstreak) {
+// Fungsi untuk menambahkan poin ke pemain
+void addPointsToPlayer(Player *player, int points, int *winstreak) {
     if (points > 0) {
         // Jika ada winstreak, gandakan poin
         if (*winstreak > 1) {
             points *= 2;
         }
-        // Update highscore
-        strcpy(highscore->name, playerName);
-        highscore->score += points;
+        // Update skor pemain
+        player->score += points;
 
         // Tampilkan informasi poin yang ditambahkan
-        printf("Player %s mendapat %d poin! Total skor: %d\n", playerName, points, highscore->score);
+        printf("Player %s mendapat %d poin! Total skor: %d\n", player->name, points, player->score);
     } else {
-        printf("Player %s tidak mendapatkan poin.\n", playerName);
+        printf("Player %s tidak mendapatkan poin.\n", player->name);
     }
 }
 
 // Fungsi untuk menangani kemenangan
-void handleWin(Highscore *highscore, const char *playerName, int basePoints, int *winstreak) {
+void handleWin(Player *player, int basePoints, int *winstreak) {
     (*winstreak)++;
-    addPointsToHighscore(highscore, playerName, basePoints, winstreak);
+    addPointsToPlayer(player, basePoints, winstreak);
 }
 
 // Fungsi untuk menangani kekalahan
@@ -38,26 +45,31 @@ void handleLoss(int *winstreak) {
     printf("Anda kalah, winstreak direset.\n");
 }
 
-// Fungsi untuk mencetak highscore
-void printHighscore(const Highscore *highscore) {
+// Fungsi untuk mencetak skor pemain
+void printPlayerScore(const Player *player) {
     printf("Highscore:\n");
-    printf("Player: %s\n", highscore->name);
-    printf("Score: %d\n", highscore->score);
+    printf("Player: %s\n", player->name);
+    printf("Score: %d\n", player->score);
 }
 
 int main() {
-    Highscore highscore = {"", 0};
+    Player player;
+    player.hand = NULL;
+    player.numCards = 0;
+    strcpy(player.name, "Player");
+    player.score = 0;
+
     int winstreak = 0;
     int basePoints = 10;  // Poin dasar per kemenangan
 
     // Simulasi permainan
-    handleWin(&highscore, "Player", basePoints, &winstreak);  // Menang
-    handleWin(&highscore, "Player", basePoints, &winstreak);  // Menang dengan winstreak
+    handleWin(&player, basePoints, &winstreak);  // Menang
+    handleWin(&player, basePoints, &winstreak);  // Menang dengan winstreak
     handleLoss(&winstreak);  // Kalah
-    handleWin(&highscore, "Player", basePoints, &winstreak);  // Menang
+    handleWin(&player, basePoints, &winstreak);  // Menang
 
     // Cetak highscore akhir
-    printHighscore(&highscore);
+    printPlayerScore(&player);
 
     return 0;
 }
