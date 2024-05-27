@@ -77,7 +77,7 @@ void print_deck(Card* deck) {
     }
 }
 
-void print_deck(Card* deck) {
+void print_deck_kartu(Card* deck) {
     Card* current_card = deck;
     while (current_card != NULL) {
 
@@ -193,4 +193,43 @@ Card* array_to_deck(Card** array, int size) {
     }
     array[size - 1]->next = NULL;  // Kartu terakhir menunjuk ke NULL
     return array[0];  // Kembalikan kepala daftar tertaut
+}
+
+Card* Semua_tentang_dek() {
+    // Buat dek
+    Card* deck = create_deck();
+    if (deck == NULL) {
+        // Handle error, misalnya tampilkan pesan kesalahan
+        printf("Error: Gagal membuat dek kartu.\n");
+        return NULL;
+    }
+    // Hitung jumlah kartu dalam dek
+    int deck_size = hitung_kartu(deck);
+    if (deck_size == 0) {
+        // Handle error, misalnya tampilkan pesan kesalahan
+        printf("Error: Dek kartu kosong.\n");
+        return NULL;
+    }
+    // Ubah dek menjadi array
+    Card** deck_array = deck_to_array(deck, deck_size);
+    if (deck_array == NULL) {
+        // Handle error, misalnya tampilkan pesan kesalahan
+        printf("Error: Gagal mengonversi dek menjadi array.\n");
+        return NULL;
+    }
+    // Acak array
+    shuffle_deck(deck_array, deck_size);
+    // Ubah array kembali menjadi linked list
+    deck = array_to_deck(deck_array, deck_size);
+    if (deck == NULL) {
+        // Handle error, misalnya tampilkan pesan kesalahan
+        printf("Error: Gagal mengonversi array menjadi dek.\n");
+        // Pastikan untuk membebaskan memori array sebelum keluar
+        free(deck_array);
+        return NULL;
+    }
+    // Bebaskan memori array
+    free(deck_array);
+
+    return deck;
 }

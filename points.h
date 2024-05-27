@@ -8,15 +8,15 @@ typedef struct {
 } Highscore;
 
 // Fungsi untuk menambahkan poin ke highscore
-void addPointsToHighscore(Highscore *highscore, const char *playerName, int points, int *winstreak);
+void addPointsToPlayer(Player *player, int points, int *winstreak);
 
 // Fungsi untuk menangani kemenangan
-void handleWin(Highscore *highscore, const char *playerName, int basePoints, int *winstreak);
+void handleWin(Player *player, int basePoints, int *winstreak);
 
 // Fungsi untuk menangani kekalahan
-void handleLoss(int *winstreak);
+void handleLoss(int *winstreak) ;
 
 // Fungsi untuk mencetak highscore
-void printHighscore(const Highscore *highscore);
+void printPlayerScore(const Player *player);
 
 #endif // HIGHSCORE_H

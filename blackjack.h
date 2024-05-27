@@ -19,4 +19,8 @@ int total_value(Card* hand);
 int count_cards(Card* hand);
 void display_hand(Card* hand);
 void playBlackjack(dek* stack);
+void saveScoreToFile(Player *player);
+void readScoresFromFile();
+void reset_hand(Card** hand);
+
 #endif // BLACKJACK_H

@@ -117,15 +117,6 @@ void draw() {
     return;
 }
 
-int main() {
-    welcome();
-    draw();
-    you_lose();
-    you_win();
-
-    return 0;
-}
-
 
 
     

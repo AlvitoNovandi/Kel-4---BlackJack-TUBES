@@ -39,5 +39,6 @@ int hitung_kartu(Card* deck);
 Card** deck_to_array(Card* deck, int size);
 void shuffle_deck(Card** array, int size);
 Card* array_to_deck(Card** array, int size);
+Card* Semua_tentang_dek();
 
 #endif //CARD_H

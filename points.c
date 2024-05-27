@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "card.h"
+#include "blackjack.h"
 // Struktur untuk menyimpan informasi kartu
-typedef struct {
-    char suit[10];
-    char rank[5];
-} Card;
+// typedef struct {
+//     char suit[10];
+//     char rank[5];
+// } Card;
 
-// Struktur untuk menyimpan informasi pemain
-typedef struct {
-    Card* hand;
-    int numCards;
-    char name[50];
-    int score;
-} Player;
+// // Struktur untuk menyimpan informasi pemain
+// typedef struct {
+//     Card* hand;
+//     int numCards;
+//     char name[50];
+//     int score;
+// } Player;
 
 // Fungsi untuk menambahkan poin ke pemain
 void addPointsToPlayer(Player *player, int points, int *winstreak) {
@@ -34,15 +35,14 @@ void addPointsToPlayer(Player *player, int points, int *winstreak) {
 }
 
 // Fungsi untuk menangani kemenangan
-void handleWin(Player *player, int basePoints, int *winstreak) {
-    (*winstreak)++;
-    addPointsToPlayer(player, basePoints, winstreak);
+void handleWin(Player *player, int basePoints) {
+    player->score += basePoints;
+    printf("Player %s mendapat %d poin! Total skor: %d\n", player->name, basePoints, player->score);
 }
 
 // Fungsi untuk menangani kekalahan
-void handleLoss(int *winstreak) {
-    *winstreak = 0;
-    printf("Anda kalah, winstreak direset.\n");
+void handleLoss(Player *player) {
+    printf("Anda kalah\n");
 }
 
 // Fungsi untuk mencetak skor pemain
@@ -52,24 +52,3 @@ void printPlayerScore(const Player *player) {
     printf("Score: %d\n", player->score);
 }
 
-int main() {
-    Player player;
-    player.hand = NULL;
-    player.numCards = 0;
-    strcpy(player.name, "Player");
-    player.score = 0;
-
-    int winstreak = 0;
-    int basePoints = 10;  // Poin dasar per kemenangan
-
-    // Simulasi permainan
-    handleWin(&player, basePoints, &winstreak);  // Menang
-    handleWin(&player, basePoints, &winstreak);  // Menang dengan winstreak
-    handleLoss(&winstreak);  // Kalah
-    handleWin(&player, basePoints, &winstreak);  // Menang
-
-    // Cetak highscore akhir
-    printPlayerScore(&player);
-
-    return 0;
-}

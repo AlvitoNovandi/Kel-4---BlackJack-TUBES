@@ -41,10 +41,14 @@ int main() {
             case 1: {
                 dek deck;
                 Player player; // Declare player
+                printf("Masukkan nama Anda: ");
+                fgets(player.name, sizeof(player.name), stdin); // Use fgets to get the name
+                strtok(player.name, "\n"); // Remove newline character from the name
+
                 // Start the Blackjack game with the player's name
                 initializeStack(&deck);
                 deck.top = Semua_tentang_dek();
-                
+                printf("Selamat bermain, %s!\n", player.name);
                 playBlackjack(&deck);
                 free_deck(deck.top);
                 break;
