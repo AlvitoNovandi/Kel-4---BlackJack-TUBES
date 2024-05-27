@@ -113,35 +113,3 @@ void playBlackjack(dek* stack) {
     display_hand(dealer.hand);
 }
 
-int main() {
-    printf("Welcome to Blackjack!\n");
-    getchar(); // Tunggu sampai tombol Enter ditekan
-
-    char playAgain = 'y';
-    while (playAgain == 'y') {
-        dek stack;
-        initializeStack(&stack); // Inisialisasi tumpukan
-
-        // Membuat dek, mengacaknya, dan mengisi tumpukan
-        Card* deck = create_deck();
-        int deckSize = hitung_kartu(deck);
-        Card** deckArray = deck_to_array(deck, deckSize);
-        shuffle_deck(deckArray, deckSize);
-
-        // Menambahkan kartu yang sudah diacak ke dalam tumpukan
-        for (int i = 0; i < deckSize; i++) {
-            push(&stack, *deckArray[i]);
-        }
-
-        // Bebaskan memori
-        free(deckArray);
-
-        // Mulai permainan Blackjack
-        playBlackjack(&stack);
-
-        // Tanyakan apakah ingin bermain lagi
-        printf("Play again? (y/n): ");
-        scanf(" %c", &playAgain);
-    }
-    return 0;
-}

@@ -5,7 +5,6 @@
 
 typedef struct {
     Card* hand;
-    int numCards;
     char name[50];
     int score;
 } Player;
