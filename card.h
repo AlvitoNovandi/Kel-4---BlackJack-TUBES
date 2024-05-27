@@ -1,3 +1,6 @@
+#ifndef CARD_H
+#define CARD_H
+
 #include <stdlib.h> //malloc
 #include <stdio.h>
 
@@ -33,3 +36,5 @@ int hitung_kartu(Card* deck);
 Card** deck_to_array(Card* deck, int size);
 void shuffle_deck(Card** array, int size);
 Card* array_to_deck(Card** array, int size);
+
+#endif //CARD_H
