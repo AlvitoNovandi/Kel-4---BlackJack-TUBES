@@ -68,7 +68,8 @@ void playBlackjack(dek* stack) {
 
     printf("Your cards:\n");
     display_hand(player.hand);
-
+    printf("Dealer's cards:\n");
+    display_hand(dealer.hand);
 
 
     char choice;

@@ -6,6 +6,8 @@
 typedef struct {
     Card* hand;
     int numCards;
+    char name[50];
+    int score;
 } Player;
 
 typedef struct {
@@ -13,7 +15,6 @@ typedef struct {
     int numCards;
 } Dealer;
 
-void shuffle_deck(Card** array, int size); // Konsisten dengan card.h
 void add_card_to_hand(Card** hand, Card* card);
 int total_value(Card* hand);
 int count_cards(Card* hand);
