@@ -30,6 +30,7 @@ void push(dek* stack, Card card);
 Card* pop(dek* stack);
 int pengisian_nilai_kartu(Rank rank);
 Card* create_deck();
+void print_deck_kartu(Card* deck);
 void print_deck(Card* deck);
 void free_deck(Card* deck);
 int hitung_kartu(Card* deck);

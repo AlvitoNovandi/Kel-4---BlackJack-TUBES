@@ -75,6 +75,70 @@ void print_deck(Card* deck) {
     }
 }
 
+void print_deck(Card* deck) {
+    Card* current_card = deck;
+    while (current_card != NULL) {
+
+        printf("_______\n");
+        if (current_card->rank<=10)
+        {
+            printf("|%d    |\n",current_card->rank);
+        }
+        else if (current_card->rank == 11)
+        {
+            printf("|jack |\n");
+        }
+        else if (current_card->rank == 12)
+        {
+            printf("|queen|\n");
+        }
+        else if (current_card->rank == 13)
+        {
+            printf("|king |\n");
+        }
+
+        printf("|     |\n");
+        if (current_card->suit == 1)
+        {
+            printf("|HEART|\n");
+        }
+        else if (current_card-> suit == 2)
+        {
+            printf("|DIAMO|\n");
+        }
+        else if(current_card->suit == 3)
+        {
+            printf("|CLUBS|\n");
+        }
+        else if (current_card->suit == 4)
+        {
+            printf("|SPADE|\n");
+        }
+        printf("|     |\n");
+        
+        if (current_card->rank<=10)
+        {
+            printf("|    %d|\n",current_card->rank);
+        }
+        else if (current_card->rank == 11)
+        {
+            printf("| jack|\n");
+        }
+        else if (current_card->rank == 12)
+        {
+            printf("|queen|\n");
+        }
+        else if (current_card->rank == 13)
+        {
+            printf("| king|\n");
+        }
+        printf("|_____|\n");  
+
+        current_card = current_card->next;
+    }
+    
+}
+
 
 //menghapus dek
 void free_deck(Card* deck) {
