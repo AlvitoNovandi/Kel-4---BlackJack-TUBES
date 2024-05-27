@@ -28,6 +28,7 @@ typedef struct {
 int isEmpty(dek* stack);
 void push(dek* stack, Card card);
 Card* pop(dek* stack);
+void initializeStack(dek* stack);
 int pengisian_nilai_kartu(Rank rank);
 Card* create_deck();
 void print_deck(Card* deck);

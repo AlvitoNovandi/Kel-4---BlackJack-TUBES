@@ -1,84 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "blackjack.h"
-
-void initializeStack(dek* stack) {
-    stack->top = NULL;
-}
-
-int isEmpty(dek* stack) {
-    return stack->top == NULL;
-}
-
-void push(dek* stack, Card* card) {
-    card->next = stack->top;
-    stack->top = card;
-}
-
-Card* pop(dek* stack) {
-    if (isEmpty(stack)) {
-        printf("The stack is empty\n");
-        return NULL;
-    }
-    Card* topCard = stack->top;
-    stack->top = stack->top->next;
-    return topCard;
-}
-
-int pengisian_nilai_kartu(Rank rank) {
-    switch(rank) {
-        case JACK: case QUEEN: case KING: return 10;
-       
-        default: return rank;
-    }
-}
-
-Card* create_deck() {
-    Card* deck = NULL;
-    Card* last_card = NULL;
-
-    for (int suit = HEARTS; suit <= SPADES; ++suit) {
-        for (int rank = ACE; rank <= KING; ++rank) {
-            Card* new_card = (Card*)malloc(sizeof(Card));
-            new_card->suit = (Suit)suit;
-            new_card->rank = (Rank)rank;
-            new_card->value = pengisian_nilai_kartu(new_card->rank);
-            new_card->next = NULL;
-
-            if (deck == NULL) {
-                deck = new_card;
-            } else {
-                last_card->next = new_card;
-            }
-            last_card = new_card;
-        }
-    }
-    return deck;
-}
-
-
+#include "card.h"
 
 void add_card_to_hand(Card** hand, Card* card) {
     card->next = *hand;
     *hand = card;
-}
-
-int total_value(Card* hand) {
-    int total = 0;
-    Card* current = hand;
-    while (current != NULL) {
-        total += current->value;
-        current = current->next;
-    }
-    return total;
-}
-
-int count_cards(Card* hand) {
-    int count = 0;
-    Card* current = hand;
-    while (current != NULL) {
-        count++;
-        current = current->next;
-    }
-    return count;
 }
 
 void display_hand(Card* hand) {
@@ -110,106 +38,109 @@ void display_hand(Card* hand) {
     printf("\n");
 }
 
-void playBlackjack() {
-    dek stack;
-    initializeStack(&stack);
 
-    Card* deck = create_deck();
-    
-
-    while (deck != NULL) {
-        Card* card = deck;
-        deck = deck->next;
-        push(&stack, card);
+int total_value(Card* hand) {
+    int total = 0;
+    while (hand != NULL) {
+        total += hand->value;
+        hand = hand->next;
     }
+    return total;
+}
 
-    Player player = {NULL};
-    Dealer dealer = {NULL};
+int count_cards(Card* hand) {
+    int count = 0;
+    Card* current = hand;
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+    return count;
+}
+void playBlackjack(dek* stack) {
+    Player player = { NULL, 0 };
+    Dealer dealer = { NULL, 0 };
 
-    add_card_to_hand(&player.hand, pop(&stack));
-    add_card_to_hand(&player.hand, pop(&stack));
-    add_card_to_hand(&dealer.hand, pop(&stack));
-    add_card_to_hand(&dealer.hand, pop(&stack));
+    add_card_to_hand(&player.hand, pop(stack));
+    add_card_to_hand(&player.hand, pop(stack));
+    add_card_to_hand(&dealer.hand, pop(stack));
+    add_card_to_hand(&dealer.hand, pop(stack));
 
     printf("Your cards:\n");
     display_hand(player.hand);
-    printf("Dealer's cards:\n");
-    display_hand(dealer.hand);
+
+
 
     char choice;
-    while (1) {
-        printf("\nHit (h) or Stand (s): ");
+    while (total_value(player.hand) <= 21) {
+        printf("Hit or stand? (h/s): ");
         scanf(" %c", &choice);
-
         if (choice == 'h') {
-            add_card_to_hand(&player.hand, pop(&stack));
+            add_card_to_hand(&player.hand, pop(stack));
             printf("Your cards:\n");
             display_hand(player.hand);
             printf("Dealer's cards:\n");
             display_hand(dealer.hand);
+            
             if (total_value(player.hand) > 21) {
-                printf("Busted! You lose.\n");
+                printf("You bust!\n");
                 return;
             }
-        } else if (choice == 's') {
+        } else {
             break;
         }
     }
 
-    while (total_value(dealer.hand) < 17) {
-        add_card_to_hand(&dealer.hand, pop(&stack));
+    while (total_value(dealer.hand) < 18) {
+        add_card_to_hand(&dealer.hand, pop(stack));
     }
 
     printf("Your total: %d\nDealer's total: %d\n", total_value(player.hand), total_value(dealer.hand));
 
-    if (total_value(player.hand) > 21 && total_value(dealer.hand) > 21) {
-        if (total_value(player.hand) < total_value(dealer.hand)) {
-            printf("Both busted! You win by being closer to 21.\n");
-        } else if (total_value(dealer.hand) < total_value(player.hand)) {
-            printf("Both busted! Dealer wins by being closer to 21.\n");
-        } else {
-            printf("Both busted and equally close! ");
-            if (count_cards(player.hand) < count_cards(dealer.hand)) {
-                printf("Dealer wins with fewer cards.\n");
-            } else {
-                printf("You win with fewer cards.\n");
-            }
-        }
-    } else if (total_value(player.hand) > 21) {
-        printf("Busted! You lose.\n");
+    if (total_value(player.hand) > 21) {
+        printf("You lose!\n");
     } else if (total_value(dealer.hand) > 21) {
-        printf("Dealer busted! You win.\n");
+        printf("Dealer busts! You win!\n");
     } else if (total_value(player.hand) > total_value(dealer.hand)) {
         printf("You win!\n");
-    } else if (total_value(dealer.hand) > total_value(player.hand)) {
-        printf("Dealer wins!\n");
+    } else if (total_value(player.hand) < total_value(dealer.hand)) {
+        printf("You lose!\n");
     } else {
-        printf("It's a draw! ");
-        if (count_cards(player.hand) < count_cards(dealer.hand)) {
-            printf("Dealer wins with fewer cards.\n");
-        } else {
-            printf("You win with fewer cards.\n");
-        }
+        printf("It's a tie!\n");
     }
-
-    printf("\nDealer's cards:\n");
+        printf("Dealer's cards:\n");
     display_hand(dealer.hand);
 }
 
-
 int main() {
-    char playAgain;
-    do {
-        printf("Welcome to Blackjack!\n");
-        printf("Press Enter to play the game...");
-        getchar(); // Wait for Enter key
-        getchar(); // Consume newline character
+    printf("Welcome to Blackjack!\n");
+    getchar(); // Tunggu sampai tombol Enter ditekan
 
-        playBlackjack();
+    char playAgain = 'y';
+    while (playAgain == 'y') {
+        dek stack;
+        initializeStack(&stack); // Inisialisasi tumpukan
 
-        printf("Do you want to play again? (y/n): ");
+        // Membuat dek, mengacaknya, dan mengisi tumpukan
+        Card* deck = create_deck();
+        int deckSize = hitung_kartu(deck);
+        Card** deckArray = deck_to_array(deck, deckSize);
+        shuffle_deck(deckArray, deckSize);
+
+        // Menambahkan kartu yang sudah diacak ke dalam tumpukan
+        for (int i = 0; i < deckSize; i++) {
+            push(&stack, *deckArray[i]);
+        }
+
+        // Bebaskan memori
+        free(deckArray);
+
+        // Mulai permainan Blackjack
+        playBlackjack(&stack);
+
+        // Tanyakan apakah ingin bermain lagi
+        printf("Play again? (y/n): ");
         scanf(" %c", &playAgain);
-    } while (playAgain == 'y');
-
+    }
     return 0;
 }
