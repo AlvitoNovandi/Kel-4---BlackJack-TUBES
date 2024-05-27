@@ -1,6 +1,5 @@
 #include "card.h"
 
-
 int isEmpty(dek* stack)
 {
     return stack->top == NULL;
@@ -31,6 +30,10 @@ Card* pop(dek* stack) {
     return topCard;
 }
 
+void initializeStack(dek* stack) {
+    stack->top = NULL;
+}
+
 //pengisian nilai untuk kartu
 int pengisian_nilai_kartu(Rank rank)
 {
@@ -40,7 +43,6 @@ int pengisian_nilai_kartu(Rank rank)
         default: return rank;   
     }
 }
-//pembuatan dek
 
 // Function to create and initialize a deck of cards
 Card* create_deck() {
@@ -161,7 +163,6 @@ int hitung_kartu(Card* deck) {
     return count;
 }
 
-
 //fungsi mengubah linked list menjadi array
 Card** deck_to_array(Card* deck, int size) {
     Card** array = (Card**)malloc(size * sizeof(Card*));  // Alokasi memori untuk array pointer Card
@@ -184,7 +185,6 @@ void shuffle_deck(Card** array, int size) {
         array[j] = temp;
     }
 }
-
 
 //  mengembalikan array menjadi linked list lagi
 Card* array_to_deck(Card** array, int size) {
