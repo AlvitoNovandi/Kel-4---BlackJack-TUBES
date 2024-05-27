@@ -3,6 +3,7 @@
 
 #include <stdlib.h> //malloc
 #include <stdio.h>
+#include <time.h> //rand
 
 typedef enum
 {
