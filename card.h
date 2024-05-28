@@ -35,10 +35,11 @@ Card* create_deck();
 void print_deck_kartu(Card* deck);
 void free_deck(Card* deck);
 int hitung_kartu(Card* deck);
+int hitung_kartu_stack(dek* deck);
 Card** deck_to_array(Card* deck, int size);
 void shuffle_deck(Card** array, int size);
 Card* array_to_deck(Card** array, int size);
 Card* Semua_tentang_dek();
-void print_dealer(Player* head);
-
+void print_dealer(Card* deck);
+void print_dek(Card* deck);
 #endif //CARD_H

@@ -235,60 +235,60 @@ Card* Semua_tentang_dek() {
 }
 
 
-void print_dealer(Player* head)
+void print_dealer(Card* head)
 {
-    Player* curr = head;
+    Card* curr = head;
     
         printf("_______\n");
-        if (curr->hand->rank<=10)
+        if (curr->rank<=10)
         {
-            printf("|%d    |\n",curr->hand->rank);
+            printf("|%d    |\n",curr->rank);
         }
-        else if (curr->hand->rank == 11)
+        else if (curr->rank == 11)
         {
             printf("|jack |\n");
         }
-        else if (curr->hand->rank == 12)
+        else if (curr->rank == 12)
         {
             printf("|queen|\n");
         }
-        else if (curr->hand->rank == 13)
+        else if (curr->rank == 13)
         {
             printf("|king |\n");
         }
 
         printf("|     |\n");
-        if (curr->hand->suit == 1)
+        if (curr->suit == 1)
         {
             printf("|HEART|\n");
         }
-        else if (curr->hand-> suit == 2)
+        else if (curr-> suit == 2)
         {
             printf("|DIAMO|\n");
         }
-        else if(curr->hand->suit == 3)
+        else if(curr->suit == 3)
         {
             printf("|CLUBS|\n");
         }
-        else if (curr->hand->suit == 4)
+        else if (curr->suit == 4)
         {
             printf("|SPADE|\n");
         }
         printf("|     |\n");
         
-        if (curr->hand->rank<=10)
+        if (curr->rank<=10)
         {
-            printf("|    %d|\n",curr->hand->rank);
+            printf("|    %d|\n",curr->rank);
         }
-        else if (curr->hand->rank == 11)
+        else if (curr->rank == 11)
         {
             printf("| jack|\n");
         }
-        else if (curr->hand->rank == 12)
+        else if (curr->rank == 12)
         {
             printf("|queen|\n");
         }
-        else if (curr->hand->rank == 13)
+        else if (curr->rank == 13)
         {
             printf("| king|\n");
         }
@@ -302,3 +302,18 @@ void print_dealer(Player* head)
     printf("|    ?|\n");
     printf("|_____|\n");
 }
+
+// void print_dek(Card* deck)
+// {
+//     int panjang = hitung_kartu(deck);
+
+//     printf("_______\n");
+//     printf("|?    |\n");
+//     printf("|     |\n");
+//     printf("|?????|\n");
+//     printf("|     |\n");
+//     printf("|    ?|\n");
+//     printf("|_____|\n");
+//     printf("sisa %d\n",panjang);
+
+// }
