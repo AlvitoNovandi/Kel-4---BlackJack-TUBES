@@ -142,7 +142,7 @@ void playBlackjack(dek* stack) {
 
                 if (total_value(player.hand) > 21) {
                     printf("You bust!\n");
-                    handleLoss(&player);
+                    you_lose();
                     winstreak = 0; // Reset winstreak on loss
                     break;
                 }
@@ -160,18 +160,19 @@ void playBlackjack(dek* stack) {
 
             if (total_value(dealer.hand) > 21) {
                 printf("Dealer busts! You win!\n");
-                handleWin(&player, 10);
+                you_win();
                 saveScoreToFile(&player); // Menyimpan skor pemain saat menang
             } else if (total_value(player.hand) > total_value(dealer.hand)) {
                 printf("You win!\n");
-                handleWin(&player, 10);
+                you_win();
                 saveScoreToFile(&player); // Menyimpan skor pemain saat menang
             } else if (total_value(player.hand) < total_value(dealer.hand)) {
                 printf("You lose!\n");
-                handleLoss(&player);
+                you_lose();
                 winstreak = 0; // Reset winstreak on loss
             } else {
                 printf("It's a tie!\n");
+                draw();
             }
         }
 
