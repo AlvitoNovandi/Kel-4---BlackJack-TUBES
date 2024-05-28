@@ -1,5 +1,5 @@
 #include "card.h"
-
+#include "blackjack.h"
 int isEmpty(dek* stack)
 {
     return stack->top == NULL;
@@ -68,14 +68,14 @@ Card* create_deck() {
     return deck;
 }
 
-//print untuk pengujian
-void print_deck(Card* deck) {
-    Card* current_card = deck;
-    while (current_card != NULL) {
-        printf("Suit: %d, Rank: %d, Value: %d\n", current_card->suit, current_card->rank, current_card->value);
-        current_card = current_card->next;
-    }
-}
+// //print untuk pengujian
+// void print_deck(Card* deck) {
+//     Card* current_card = deck;
+//     while (current_card != NULL) {
+//         printf("Suit: %d, Rank: %d, Value: %d\n", current_card->suit, current_card->rank, current_card->value);
+//         current_card = current_card->next;
+//     }
+// }
 
 void print_deck_kartu(Card* deck) {
     Card* current_card = deck;
@@ -232,4 +232,73 @@ Card* Semua_tentang_dek() {
     free(deck_array);
 
     return deck;
+}
+
+
+void print_dealer(Player* head)
+{
+    Player* curr = head;
+    
+        printf("_______\n");
+        if (curr->hand->rank<=10)
+        {
+            printf("|%d    |\n",curr->hand->rank);
+        }
+        else if (curr->hand->rank == 11)
+        {
+            printf("|jack |\n");
+        }
+        else if (curr->hand->rank == 12)
+        {
+            printf("|queen|\n");
+        }
+        else if (curr->hand->rank == 13)
+        {
+            printf("|king |\n");
+        }
+
+        printf("|     |\n");
+        if (curr->hand->suit == 1)
+        {
+            printf("|HEART|\n");
+        }
+        else if (curr->hand-> suit == 2)
+        {
+            printf("|DIAMO|\n");
+        }
+        else if(curr->hand->suit == 3)
+        {
+            printf("|CLUBS|\n");
+        }
+        else if (curr->hand->suit == 4)
+        {
+            printf("|SPADE|\n");
+        }
+        printf("|     |\n");
+        
+        if (curr->hand->rank<=10)
+        {
+            printf("|    %d|\n",curr->hand->rank);
+        }
+        else if (curr->hand->rank == 11)
+        {
+            printf("| jack|\n");
+        }
+        else if (curr->hand->rank == 12)
+        {
+            printf("|queen|\n");
+        }
+        else if (curr->hand->rank == 13)
+        {
+            printf("| king|\n");
+        }
+        printf("|_____|\n");  
+    
+    printf("_______\n");
+    printf("|?    |\n");
+    printf("|     |\n");
+    printf("|?????|\n");
+    printf("|     |\n");
+    printf("|    ?|\n");
+    printf("|_____|\n");
 }
