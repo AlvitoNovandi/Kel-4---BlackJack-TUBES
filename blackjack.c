@@ -112,7 +112,7 @@ void playBlackjack(dek* stack) {
     Dealer dealer = { NULL, 0 };
     int winstreak = 0; // Track the winstreak for the player
     char playAgain;
-    printf("Enter your name: ");
+    printf("Masukkan nama Anda: ");
     scanf("%s", player.name);
     printf("Selamat bermain, %s!\n", player.name);
     do {
@@ -124,9 +124,9 @@ void playBlackjack(dek* stack) {
         add_card_to_hand(&dealer.hand, pop(stack));
         add_card_to_hand(&dealer.hand, pop(stack));
 
-        printf("Your cards:\n");
+        printf("kartu Kamu:\n");
         print_deck_kartu(player.hand);
-        printf("Dealer's cards:\n");
+        printf(" Kartu Dealer:\n");
         print_deck_kartu(dealer.hand);
 
         char choice;
@@ -135,9 +135,9 @@ void playBlackjack(dek* stack) {
             scanf(" %c", &choice);
             if (choice == 'h') {
                 add_card_to_hand(&player.hand, pop(stack));
-                printf("Your cards:\n");
+                printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
-                printf("Dealer's cards:\n");
+                printf(" Kartu Dealer:\n");
                 print_deck_kartu(dealer.hand);
 
                 if (total_value(player.hand) > 21) {
@@ -156,7 +156,7 @@ void playBlackjack(dek* stack) {
                 add_card_to_hand(&dealer.hand, pop(stack));
             }
 
-            printf("Your total: %d\nDealer's total: %d\n", total_value(player.hand), total_value(dealer.hand));
+            printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
 
             if (total_value(dealer.hand) > 21) {
                 printf("Dealer busts! You win!\n");
@@ -175,7 +175,7 @@ void playBlackjack(dek* stack) {
             }
         }
 
-        printf("Do you want to play again? (y/n): ");
+        printf("Mau Main Lagi (y/n): ");
         scanf(" %c", &playAgain);
         if (playAgain != 'y' && playAgain != 'Y') {
             break;

@@ -27,7 +27,7 @@ void welcome() {
     printf("                                                                                                                                                                                              \n");
     printf("                                                                                                                                                                                              \n");
 
-    printf("\n                                                                                       Press Enter to continue...");
+    printf("\n                                                                                       Tekan Enter untuk lanjut...");
     getchar(); // Menunggu pengguna menekan Enter
 }
 

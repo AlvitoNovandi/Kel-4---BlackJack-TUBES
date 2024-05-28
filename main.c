@@ -23,7 +23,7 @@ int getValidMenuChoice() {
                 return choice;
             }
         }
-        printf("Invalid input. Please enter a number between 1 and 3: ");
+        printf("Input Tidak Valid. Tolong Masukkan Antara 1 Sampai 3: ");
     }
 }
 
