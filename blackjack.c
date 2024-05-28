@@ -112,8 +112,6 @@ void playBlackjack(dek* stack) {
     Dealer dealer = { NULL, 0 };
     int winstreak = 0; // Track the winstreak for the player
     char playAgain;
-    initializeStack(&deck);
-    deck.top = Semua_tentang_dek();
     printf("Masukkan nama Anda: ");
     scanf("%s", player.name);
     printf("Selamat bermain, %s!\n", player.name);
