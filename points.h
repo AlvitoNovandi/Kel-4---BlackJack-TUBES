@@ -11,12 +11,9 @@ typedef struct {
 void addPointsToPlayer(Player *player, int points, int *winstreak);
 
 // Fungsi untuk menangani kemenangan
-void handleWin(Player *player, int basePoints, int *winstreak);
+void handleWin(Player *player, int basePoints);
 
 // Fungsi untuk menangani kekalahan
-void handleLoss(int *winstreak) ;
-
-// Fungsi untuk mencetak highscore
-void printPlayerScore(const Player *player);
+void handleLoss(Player *player) ;
 
 #endif // HIGHSCORE_H

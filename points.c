@@ -45,10 +45,5 @@ void handleLoss(Player *player) {
     printf("Anda kalah\n");
 }
 
-// Fungsi untuk mencetak skor pemain
-void printPlayerScore(const Player *player) {
-    printf("Highscore:\n");
-    printf("Player: %s\n", player->name);
-    printf("Score: %d\n", player->score);
-}
+
 
