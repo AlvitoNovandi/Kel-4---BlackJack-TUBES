@@ -23,7 +23,7 @@ int getValidMenuChoice() {
                 return choice;
             }
         }
-        printf("Input Tidak Valid. Tolong Masukkan Antara 1 Sampai 3: ");
+        printf("Input Tidak Valid. Tolong Masukkan Antara 1 Sampai3: ");
     }
 }
 
@@ -42,7 +42,8 @@ int main() {
                 dek deck;
                 Player player; // Declare player
                 // Start the Blackjack game with the player's name
-
+                initializeStack(&deck);
+                deck.top = Semua_tentang_dek();
                 
                 playBlackjack(&deck);
                 free_deck(deck.top);
