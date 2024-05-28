@@ -17,7 +17,7 @@ typedef struct {
 void add_card_to_hand(Card** hand, Card* card);
 int total_value(Card* hand);
 int count_cards(Card* hand);
-void display_hand(Card* hand);
+
 void playBlackjack(dek* stack);
 void saveScoreToFile(Player *player);
 void readScoresFromFile();

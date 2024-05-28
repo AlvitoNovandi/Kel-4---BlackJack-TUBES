@@ -9,35 +9,6 @@ void add_card_to_hand(Card** hand, Card* card) {
     *hand = card;
 }
 
-void display_hand(Card* hand) {
-    Card* current = hand;
-    while (current != NULL) {
-        switch (current->rank) {
-            case ACE: printf("Ace of "); break;
-            case TWO: printf("2 of "); break;
-            case THREE: printf("3 of "); break;
-            case FOUR: printf("4 of "); break;
-            case FIVE: printf("5 of "); break;
-            case SIX: printf("6 of "); break;
-            case SEVEN: printf("7 of "); break;
-            case EIGHT: printf("8 of "); break;
-            case NINE: printf("9 of "); break;
-            case TEN: printf("10 of "); break;
-            case JACK: printf("Jack of "); break;
-            case QUEEN: printf("Queen of "); break;
-            case KING: printf("King of "); break;
-        }
-        switch (current->suit) {
-            case HEARTS: printf("Hearts\n"); break;
-            case DIAMONDS: printf("Diamonds\n"); break;
-            case CLUBS: printf("Clubs\n"); break;
-            case SPADES: printf("Spades\n"); break;
-        }
-        current = current->next;
-    }
-    printf("\n");
-}
-
 
 void saveScoreToFile(Player *player) {
     FILE *file = fopen("scores.txt", "a"); // Append mode
@@ -127,7 +98,7 @@ void playBlackjack(dek* stack) {
         printf("kartu Kamu:\n");
         print_deck_kartu(player.hand);
         printf(" Kartu Dealer:\n");
-        print_deck_kartu(dealer.hand);
+        print_dealer(dealer.hand);
 
         char choice;
         while (total_value(player.hand) <= 21) {
@@ -138,13 +109,12 @@ void playBlackjack(dek* stack) {
                 printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
-                print_deck_kartu(dealer.hand);
+                print_dealer(dealer.hand);
 
                 if (total_value(player.hand) > 21) {
                     printf("You bust!\n");
                     you_lose();
                     handleLoss(&player);
-                    
                     winstreak = 0; // Reset winstreak on loss
                     break;
                 }
@@ -164,17 +134,16 @@ void playBlackjack(dek* stack) {
                 printf("Dealer busts! You win!\n");
                 you_win();
                 handleWin(&player, 10);
-               // Menyimpan skor pemain saat menang
+                saveScoreToFile(&player); // Menyimpan skor pemain saat menang
             } else if (total_value(player.hand) > total_value(dealer.hand)) {
                 printf("You win!\n");
                 you_win();
                 handleWin(&player, 10);
-                 // Menyimpan skor pemain saat menang
+                saveScoreToFile(&player); // Menyimpan skor pemain saat menang
             } else if (total_value(player.hand) < total_value(dealer.hand)) {
                 printf("You lose!\n");
                 you_lose();
                 handleLoss(&player);
-                
                 winstreak = 0; // Reset winstreak on loss
             } else {
                 printf("It's a tie!\n");
@@ -185,7 +154,6 @@ void playBlackjack(dek* stack) {
         printf("Mau Main Lagi (y/n): ");
         scanf(" %c", &playAgain);
         if (playAgain != 'y' && playAgain != 'Y') {
-            saveScoreToFile(&player); 
             break;
         }
 
