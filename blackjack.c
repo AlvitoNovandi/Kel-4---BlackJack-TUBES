@@ -115,6 +115,11 @@ void playBlackjack(dek* stack) {
                     printf("You bust!\n");
                     you_lose();
                     handleLoss(&player);
+                    printf("Kartu Kamu:\n");
+                    print_deck_kartu(player.hand);
+                    printf(" Kartu Dealer:\n");
+                    print_deck_kartu(dealer.hand);
+                    printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                     winstreak = 0; // Reset winstreak on loss
                     break;
                 }
@@ -124,8 +129,14 @@ void playBlackjack(dek* stack) {
         }
 
         if (total_value(player.hand) <= 21) {
+            
             while (total_value(dealer.hand) < 18) {
                 add_card_to_hand(&dealer.hand, pop(stack));
+                    printf("Kartu Kamu:\n");
+                    print_deck_kartu(player.hand);
+                    printf(" Kartu Dealer:\n");
+                    print_deck_kartu(dealer.hand);
+                    printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
             }
 
             printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
@@ -133,27 +144,51 @@ void playBlackjack(dek* stack) {
             if (total_value(dealer.hand) > 21) {
                 printf("Dealer busts! You win!\n");
                 you_win();
+                printf("Kartu Kamu:\n");
+                print_deck_kartu(player.hand);
+                printf(" Kartu Dealer:\n");
+                print_deck_kartu(dealer.hand);
+                
+                printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 handleWin(&player, 10);
-                saveScoreToFile(&player); // Menyimpan skor pemain saat menang
+                
             } else if (total_value(player.hand) > total_value(dealer.hand)) {
                 printf("You win!\n");
                 you_win();
+                printf("Kartu Kamu:\n");
+                print_deck_kartu(player.hand);
+                printf(" Kartu Dealer:\n");
+               print_deck_kartu(dealer.hand);
+                
+                printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 handleWin(&player, 10);
-                saveScoreToFile(&player); // Menyimpan skor pemain saat menang
+                
             } else if (total_value(player.hand) < total_value(dealer.hand)) {
                 printf("You lose!\n");
                 you_lose();
-                handleLoss(&player);
+                 printf("Kartu Kamu:\n");
+                print_deck_kartu(player.hand);
+                printf(" Kartu Dealer:\n");
+               print_deck_kartu(dealer.hand);
+                handleWin(&player, 10);
+                printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 winstreak = 0; // Reset winstreak on loss
             } else {
                 printf("It's a tie!\n");
                 draw();
+                printf("Kartu Kamu:\n");
+                print_deck_kartu(player.hand);
+                printf(" Kartu Dealer:\n");
+                print_deck_kartu(dealer.hand);
+                handleWin(&player, 10);  
+                printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
             }
         }
 
         printf("Mau Main Lagi (y/n): ");
         scanf(" %c", &playAgain);
         if (playAgain != 'y' && playAgain != 'Y') {
+            saveScoreToFile(&player); // Menyimpan skor pemain saat menang
             break;
         }
 
