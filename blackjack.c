@@ -110,8 +110,11 @@ void reset_hand(Card** hand) {
 void playBlackjack(dek* stack) {
     Player player = { NULL, 0 };
     Dealer dealer = { NULL, 0 };
+    dek deck;
     int winstreak = 0; // Track the winstreak for the player
     char playAgain;
+    initializeStack(&deck);
+    deck.top = Semua_tentang_dek();
     printf("Masukkan nama Anda: ");
     scanf("%s", player.name);
     printf("Selamat bermain, %s!\n", player.name);

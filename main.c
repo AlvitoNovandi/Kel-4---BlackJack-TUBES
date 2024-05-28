@@ -42,8 +42,7 @@ int main() {
                 dek deck;
                 Player player; // Declare player
                 // Start the Blackjack game with the player's name
-                initializeStack(&deck);
-                deck.top = Semua_tentang_dek();
+
                 
                 playBlackjack(&deck);
                 free_deck(deck.top);
