@@ -1,0 +1,5 @@
+haikal,20
+alfito,50
+abyan,30
+alqan,0
+yanto,20
