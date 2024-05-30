@@ -95,7 +95,7 @@ void playBlackjack(dek* stack) {
 
             if (total_value(dealer.hand) > 21) {
                 printf("Dealer busts! You win!\n");
-                you_win();
+                
                 printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
@@ -103,10 +103,11 @@ void playBlackjack(dek* stack) {
                 
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 handleWin(&player, 10);
+                you_win();
                 
             } else if (total_value(player.hand) > total_value(dealer.hand)) {
                 printf("You win!\n");
-                you_win();
+                
                 printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
@@ -114,10 +115,11 @@ void playBlackjack(dek* stack) {
                 
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 handleWin(&player, 10);
+                you_win();
                 
             } else if (total_value(player.hand) < total_value(dealer.hand)) {
                 printf("You lose!\n");
-                you_lose();
+                
                  printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
@@ -125,14 +127,16 @@ void playBlackjack(dek* stack) {
                 handleLoss(&player);
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 winstreak = 0; // Reset winstreak on loss
+                you_lose();
             } else {
-                printf("It's a tie!\n");
-                draw();
+                
+                
                 printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
                 print_deck_kartu(dealer.hand);
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
+                draw();
             }
         }
 
