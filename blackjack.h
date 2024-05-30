@@ -11,7 +11,6 @@ typedef struct {
 
 typedef struct {
     Card* hand;
-    int numCards;
 } Dealer;
 
 void add_card_to_hand(Card** hand, Card* card);
