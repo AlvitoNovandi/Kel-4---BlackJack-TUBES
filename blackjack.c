@@ -65,13 +65,13 @@ void playBlackjack(dek* stack) {
 
                 if (total_value(player.hand) > 21) {
                     printf("You bust!\n");
-                    you_lose();
                     handleLoss(&player);
                     printf("Kartu Kamu:\n");
                     print_deck_kartu(player.hand);
                     printf(" Kartu Dealer:\n");
                     print_deck_kartu(dealer.hand);
                     printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
+                    you_lose();
                     winstreak = 0; // Reset winstreak on loss
                     break;
                 }
