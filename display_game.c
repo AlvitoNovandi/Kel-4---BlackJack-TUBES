@@ -41,7 +41,7 @@ void displayMenu() {
     printf("2. Record\n");
     printf("3. Top score\n");
     printf("4. keluar\n");
-    printf("Pilih opsi (1-3): ");
+    printf("Pilih opsi (1-4): ");
 }
 
 
