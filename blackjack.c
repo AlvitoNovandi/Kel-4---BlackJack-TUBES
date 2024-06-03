@@ -4,10 +4,87 @@
 #include "blackjack.h"
 #include "card.h"
 
+int compareScores(const void *a, const void *b) {
+    PlayerScore *scoreA = (PlayerScore *)a;
+    PlayerScore *scoreB = (PlayerScore *)b;
+    return scoreB->score - scoreA->score;
+}
+
+void readScoresFromFile_Top() {
+    FILE *file = fopen("scores.txt", "r"); // Buka file untuk membaca
+
+    if (file != NULL) {
+        printf("Skor pemain yang tersimpan:\n");
+        PlayerScore scores[100]; // Array untuk menyimpan skor, asumsikan maksimum 100 skor
+        int count = 0;
+        char line[100]; // Ukuran buffer yang mencukupi untuk membaca satu baris
+
+        while (fgets(line, sizeof(line), file) != NULL) { // Baca satu baris pada setiap iterasi
+            if (count < 100) { // Pastikan tidak melebihi ukuran array
+                if (sscanf(line, "%[^,],%d", scores[count].name, &scores[count].score) == 2) {
+                    count++;
+                } else {
+                    printf("Format file tidak valid: %s\n", line);
+                }
+            } else {
+                printf("Melebihi kapasitas array, beberapa skor mungkin tidak terbaca.\n");
+                break;
+            }
+        }
+        fclose(file); // Tutup file setelah selesai membaca
+
+        // Urutkan skor dari yang terbesar ke terkecil
+        qsort(scores, count, sizeof(PlayerScore), compareScores);
+
+        // Tampilkan 10 skor teratas atau kurang jika kurang dari 10
+        for (int i = 0; i < count && i < 10; i++) {
+            printf("Player: %s, Score: %d\n", scores[i].name, scores[i].score);
+        }
+    } else {
+        printf("Gagal membuka file untuk membaca skor.\n");
+    }
+}
 void add_card_to_hand(Card** hand, Card* card) {
     card->next = *hand;
     *hand = card;
 }
+
+
+void saveScoreToFile(Player *player) {
+    FILE *file = fopen("scores.txt", "a"); // Append mode
+
+    if (file == NULL) {
+        printf("Gagal membuka file.\n");
+        return;
+    }
+
+    fprintf(file, "%s,%d\n", player->name, player->score); // Menulis nama dan skor ke file dengan koma sebagai pemisah
+    fclose(file);
+}
+
+void readScoresFromFile() {
+    FILE *file = fopen("scores.txt", "r"); // Buka file untuk membaca
+
+    if (file != NULL) {
+        printf("Skor pemain yang tersimpan:\n");
+        char line[100]; // Ukuran buffer yang mencukupi untuk membaca satu baris
+        while (fgets(line, sizeof(line), file) != NULL) { // Baca satu baris pada setiap iterasi
+            char name[50];
+            int score;
+            // Memisahkan nama pemain dan skor dari baris yang dibaca
+            if (sscanf(line, "%[^,],%d", name, &score) == 2) {
+                printf("Player: %s, Score: %d\n", name, score);
+            } else {
+                printf("Format file tidak valid: %s\n", line);
+            }
+        }
+        fclose(file); // Tutup file setelah selesai membaca
+    } else {
+        printf("Gagal membuka file untuk membaca skor.\n");
+    }
+}
+
+
 
 
 int total_value(Card* hand) {
@@ -28,6 +105,17 @@ int count_cards(Card* hand) {
     }
     return count;
 }
+
+void reset_hand(Card** hand) {
+    Card* current = *hand;
+    while (current != NULL) {
+        Card* temp = current;
+        current = current->next;
+        free(temp); // Membebaskan memori setiap node
+    }
+    *hand = NULL; // Atur pointer tangan ke NULL setelah semua kartu dihapus
+}
+
 
 
 void playBlackjack(dek* stack) {
@@ -65,14 +153,14 @@ void playBlackjack(dek* stack) {
 
                 if (total_value(player.hand) > 21) {
                     printf("You bust!\n");
+                    you_lose();
                     handleLoss(&player);
                     printf("Kartu Kamu:\n");
                     print_deck_kartu(player.hand);
                     printf(" Kartu Dealer:\n");
                     print_deck_kartu(dealer.hand);
                     printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
-                    you_lose();
-                    winstreak = 0; // Reset winstreak on loss
+                   
                     break;
                 }
             } else {
@@ -95,7 +183,7 @@ void playBlackjack(dek* stack) {
 
             if (total_value(dealer.hand) > 21) {
                 printf("Dealer busts! You win!\n");
-                
+                you_win();
                 printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
@@ -103,11 +191,10 @@ void playBlackjack(dek* stack) {
                 
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 handleWin(&player, 10);
-                you_win();
                 
             } else if (total_value(player.hand) > total_value(dealer.hand)) {
                 printf("You win!\n");
-                
+                you_win();
                 printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
@@ -115,28 +202,25 @@ void playBlackjack(dek* stack) {
                 
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 handleWin(&player, 10);
-                you_win();
                 
             } else if (total_value(player.hand) < total_value(dealer.hand)) {
                 printf("You lose!\n");
-                
+                you_lose();
                  printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
                print_deck_kartu(dealer.hand);
-                handleLoss(&player);
+                handLoss(&player);
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
-                winstreak = 0; // Reset winstreak on loss
-                you_lose();
+                
             } else {
-                
-                
+                printf("It's a tie!\n");
+                draw();
                 printf("Kartu Kamu:\n");
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
                 print_deck_kartu(dealer.hand);
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
-                draw();
             }
         }
 
@@ -152,48 +236,4 @@ void playBlackjack(dek* stack) {
         reset_hand(&dealer.hand);
 
     } while (1);
-}
-
-void saveScoreToFile(Player *player) {
-    FILE *file = fopen("scores.txt", "a"); // Append mode
-
-    if (file == NULL) {
-        printf("Gagal membuka file.\n");
-        return;
-    }
-
-    fprintf(file, "%s,%d\n", player->name, player->score); // Menulis nama dan skor ke file dengan koma sebagai pemisah
-    fclose(file);
-}
-
-void readScoresFromFile() {
-    FILE *file = fopen("scores.txt", "r"); // Buka file untuk membaca
-
-    if (file != NULL) {
-        printf("Skor pemain yang tersimpan:\n");
-        char line[100]; // Ukuran buffer yang mencukupi untuk membaca satu baris
-        while (fgets(line, sizeof(line), file) != NULL) { // Baca satu baris pada setiap iterasi
-            char name[50];
-            int score;
-            // Memisahkan nama pemain dan skor dari baris yang dibaca
-            if (sscanf(line, "%[^,],%d", name, &score) == 2) {
-                printf("Player: %s, Score: %d\n", name, score);
-            } else {
-                printf("Format file tidak valid: %s\n", line);
-            }
-        }
-        fclose(file); // Tutup file setelah selesai membaca
-    } else {
-        printf("Gagal membuka file untuk membaca skor.\n");
-    }
-}
-
-void reset_hand(Card** hand) {
-    Card* current = *hand;
-    while (current != NULL) {
-        Card* temp = current;
-        current = current->next;
-        free(temp); // Membebaskan memori setiap node
-    }
-    *hand = NULL; // Atur pointer tangan ke NULL setelah semua kartu dihapus
 }
