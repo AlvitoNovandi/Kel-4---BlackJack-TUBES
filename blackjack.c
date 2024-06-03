@@ -169,7 +169,7 @@ void playBlackjack(dek* stack) {
                 print_deck_kartu(player.hand);
                 printf(" Kartu Dealer:\n");
                print_deck_kartu(dealer.hand);
-                handLoss(&player);
+                handleLoss(&player);
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
                 winstreak= 0;
             } else {
