@@ -39,7 +39,8 @@ void displayMenu() {
     printf("Menu:\n");
     printf("1. Main Game Blackjack\n");
     printf("2. Record\n");
-    printf("3. keluar\n");
+    printf("3. Top score\n");
+    printf("4. keluar\n");
     printf("Pilih opsi (1-3): ");
 }
 

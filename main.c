@@ -19,11 +19,11 @@ int getValidMenuChoice() {
     
     while (1) {
         if (fgets(buffer, sizeof(buffer), stdin)) {
-            if (sscanf(buffer, "%d", &choice) == 1 && choice >= 1 && choice <= 3) {
+            if (sscanf(buffer, "%d", &choice) == 1 && choice >= 1 && choice <= 4) {
                 return choice;
             }
         }
-        printf("Input Tidak Valid. Tolong Masukkan Antara 1 Sampai3: ");
+        printf("Input Tidak Valid. Tolong Masukkan Antara 1 Sampai 3: ");
     }
 }
 
@@ -55,6 +55,12 @@ int main() {
                 pauseForEnter(); // Wait for Enter key press before returning to menu
                 break;
             case 3:
+                // Display scores
+                readScoresFromFileTop();; // Read scores from file before displaying
+                pauseForEnter(); // Wait for Enter key press before returning to menu
+                break;
+
+            case 4:
                 printf("Terima kasih telah bermain!\n");
                 sleep(2); // Wait 2 seconds before exiting the game
                 return 0;
