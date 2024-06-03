@@ -8,7 +8,7 @@ typedef struct {
 } Highscore;
 
 // Fungsi untuk menambahkan poin ke highscore
-void addPointsToPlayer(Player *player, int points);
+void addPointsToPlayer(Player *player, int points, int *winstreak);
 
 // Fungsi untuk menangani kemenangan
 void handleWin(Player *player, int basePoints);

@@ -3,47 +3,6 @@
 #include <time.h>
 #include "blackjack.h"
 #include "card.h"
-
-int compareScores(const void *a, const void *b) {
-    PlayerScore *scoreA = (PlayerScore *)a;
-    PlayerScore *scoreB = (PlayerScore *)b;
-    return scoreB->score - scoreA->score;
-}
-
-void readScoresFromFile_Top() {
-    FILE *file = fopen("scores.txt", "r"); // Buka file untuk membaca
-
-    if (file != NULL) {
-        printf("Skor pemain yang tersimpan:\n");
-        PlayerScore scores[100]; // Array untuk menyimpan skor, asumsikan maksimum 100 skor
-        int count = 0;
-        char line[100]; // Ukuran buffer yang mencukupi untuk membaca satu baris
-
-        while (fgets(line, sizeof(line), file) != NULL) { // Baca satu baris pada setiap iterasi
-            if (count < 100) { // Pastikan tidak melebihi ukuran array
-                if (sscanf(line, "%[^,],%d", scores[count].name, &scores[count].score) == 2) {
-                    count++;
-                } else {
-                    printf("Format file tidak valid: %s\n", line);
-                }
-            } else {
-                printf("Melebihi kapasitas array, beberapa skor mungkin tidak terbaca.\n");
-                break;
-            }
-        }
-        fclose(file); // Tutup file setelah selesai membaca
-
-        // Urutkan skor dari yang terbesar ke terkecil
-        qsort(scores, count, sizeof(PlayerScore), compareScores);
-
-        // Tampilkan 10 skor teratas atau kurang jika kurang dari 10
-        for (int i = 0; i < count && i < 10; i++) {
-            printf("Player: %s, Score: %d\n", scores[i].name, scores[i].score);
-        }
-    } else {
-        printf("Gagal membuka file untuk membaca skor.\n");
-    }
-}
 void add_card_to_hand(Card** hand, Card* card) {
     card->next = *hand;
     *hand = card;

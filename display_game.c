@@ -39,8 +39,7 @@ void displayMenu() {
     printf("Menu:\n");
     printf("1. Main Game Blackjack\n");
     printf("2. Record\n");
-    printf("3. Top Score\n");
-    printf("4. Keluar");
+    printf("3. keluar\n");
     printf("Pilih opsi (1-3): ");
 }
 
@@ -49,7 +48,7 @@ void displayMenu() {
 
 void you_win() {
     
-    system("cls"); 
+   
     
     printf("    _           _             _  _  _  _             _            _   \n");
     printf("   (_)_       _(_)          _(_)(_)(_)(_)_          (_)          (_)  \n");
@@ -76,7 +75,7 @@ void you_win() {
 
 void you_lose() {
 
-    system("cls"); 
+  
 
     printf("    _           _             _  _  _  _             _            _                            \n");
     printf("   (_)_       _(_)          _(_)(_)(_)(_)_          (_)          (_)                           \n");
@@ -103,7 +102,7 @@ void you_lose() {
 
 void draw() {
 
-    system("cls"); 
+    
 
     printf("    _  _  _  _              _  _  _  _                    _                 _             _   \n");
     printf("   (_)(_)(_)(_)            (_)(_)(_)(_) _               _(_)_              (_)           (_)  \n");
