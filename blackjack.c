@@ -119,7 +119,7 @@ void playBlackjack(dek* stack) {
                     printf(" Kartu Dealer:\n");
                     print_deck_kartu(dealer.hand);
                     printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
-                   
+                    winstreak= 0;
                     break;
                 }
             } else {
@@ -171,7 +171,7 @@ void playBlackjack(dek* stack) {
                print_deck_kartu(dealer.hand);
                 handLoss(&player);
                 printf("total kamu: %d\nDealer total: %d\n", total_value(player.hand), total_value(dealer.hand));
-                
+                winstreak= 0;
             } else {
                 printf("It's a tie!\n");
                 draw();
