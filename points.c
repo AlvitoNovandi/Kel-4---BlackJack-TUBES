@@ -18,12 +18,8 @@
 // } Player;
 
 // Fungsi untuk menambahkan poin ke pemain
-void addPointsToPlayer(Player *player, int points, int *winstreak) {
+void addPointsToPlayer(Player *player, int points) {
     if (points > 0) {
-        // Jika ada winstreak, gandakan poin
-        if (*winstreak > 1) {
-            points *= 2;
-        }
         // Update skor pemain
         player->score += points;
 
