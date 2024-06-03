@@ -48,7 +48,7 @@ void displayMenu() {
 
 void you_win() {
     
-    system("cls"); 
+   
     
     printf("    _           _             _  _  _  _             _            _   \n");
     printf("   (_)_       _(_)          _(_)(_)(_)(_)_          (_)          (_)  \n");
@@ -75,7 +75,7 @@ void you_win() {
 
 void you_lose() {
 
-    system("cls"); 
+     
 
     printf("    _           _             _  _  _  _             _            _                            \n");
     printf("   (_)_       _(_)          _(_)(_)(_)(_)_          (_)          (_)                           \n");
@@ -102,7 +102,7 @@ void you_lose() {
 
 void draw() {
 
-    system("cls"); 
+    
 
     printf("    _  _  _  _              _  _  _  _                    _                 _             _   \n");
     printf("   (_)(_)(_)(_)            (_)(_)(_)(_) _               _(_)_              (_)           (_)  \n");
