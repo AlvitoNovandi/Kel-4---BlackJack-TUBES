@@ -75,7 +75,7 @@ void you_win() {
 
 void you_lose() {
 
-  
+    system("cls"); 
 
     printf("    _           _             _  _  _  _             _            _                            \n");
     printf("   (_)_       _(_)          _(_)(_)(_)(_)_          (_)          (_)                           \n");
